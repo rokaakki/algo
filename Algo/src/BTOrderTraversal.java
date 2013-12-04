@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /*
- * Binary Tree Post Order Traversal
+ * Binary Tree Post and Pre Order Traversal
  * recursive and iterative
  */
 public class BTOrderTraversal {
