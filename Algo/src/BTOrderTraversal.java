@@ -3,7 +3,7 @@ import java.util.Stack;
 
 /*
  * Binary Tree Post Order Traversal
- * recursive
+ * recursive and iterative
  */
 public class BTOrderTraversal {
 
