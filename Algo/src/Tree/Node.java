@@ -1,4 +1,4 @@
-
+package Tree;
 public class Node {
 	public Node leftChild;
 	public Node rightChild;
