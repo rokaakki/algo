@@ -60,6 +60,33 @@ public class BTOrderTraversal {
 			result.add(currentNode.value);
 		}
 	}
+	private static void InOrder(Node node){
+		if(node==null)
+			return;
+		InOrder(node.leftChild);
+		result.add(node.value);
+		InOrder(node.rightChild);
+	}
+	private static void BTInOrder(Node root){
+		result=new ArrayList<Integer>();
+		if(root!=null)
+			InOrder(root);
+	}
+	private static void BTInOrderIterative(Node root){
+		result=new ArrayList<Integer>();
+		Stack<Node> temp=new Stack<Node>();
+		Node current=root;
+		while(!temp.isEmpty()||current!=null){
+			if(current!=null){
+				temp.push(current);
+				current=current.leftChild;
+			}else{
+				current=temp.pop();
+				result.add(current.value);
+				current=current.rightChild;
+			}
+		}
+	}
 	public static void main(String [] args){
 		System.out.println("Hello");
 		/*
@@ -78,6 +105,10 @@ public class BTOrderTraversal {
 		BTPreOrderIterative(root);
 		System.out.println(result.toString());
 		BTPreOrder(root);
+		System.out.println(result.toString());
+		BTInOrderIterative(root);
+		System.out.println(result.toString());
+		BTInOrder(root);
 		System.out.println(result.toString());
 		
 	}
