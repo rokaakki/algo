@@ -3,37 +3,37 @@ package tree;
 import java.util.ArrayList;
 
 public class BinarySearchTree {
-	private static ArrayList<Integer> result;
-	private static void InOrder(Node node){
+	protected static ArrayList<Integer> result;
+	protected static void InOrder(Node node){
 		if(node==null)
 			return;
 		InOrder(node.leftChild);
 		result.add(node.value);
 		InOrder(node.rightChild);
 	}
-	private static void BTInOrder(Node root){
+	protected static void BTInOrder(Node root){
 		result=new ArrayList<Integer>();
 		if(root!=null)
 			InOrder(root);
 	}
-	 private static void Insert(Node root,int value){
+	 protected static void Insert(Node root,int value){
 		 if(root==null)
 			 return;
 		 if(value<root.value){
 			 if(root.leftChild!=null){
 				 Insert(root.leftChild,value);
 			 }else{
-				 root.leftChild=new Node(value,null,null);
+				 root.leftChild=new Node(value,null,null,root);
 			 }
 		 }else{
 			 if(root.rightChild!=null){
 				 Insert(root.rightChild,value);
 			 }else{
-				 root.rightChild=new Node(value,null,null);
+				 root.rightChild=new Node(value,null,null,root);
 			 }
 		 }
 	 }
-	 private static Node Search(Node root, int value){
+	 protected static Node Search(Node root, int value){
 		 if(root==null||root.value==value)
 			 return root;
 		 else if(value<root.value){
@@ -42,9 +42,9 @@ public class BinarySearchTree {
 			 return Search(root.rightChild,value);
 		 }
 	 }
-	 private static void Delete(Node root,int value){
-		 //Node find=Search(root,value);
-		 
+	 protected static void Delete(Node root,int value){
+		 Node find=Search(root,value);
+		 /*
 		 Node find=root;
 		 Node parent=null;
 		//1. find the node
@@ -60,32 +60,30 @@ public class BinarySearchTree {
 				 break;
 			 }
 		 }
-				 
+		*/	 
 		 if(find==null)
 			 return;
-		 
+		 Node parent=find.parent;
 		 //2. check if has child
 		 if(find.leftChild==null&&find.rightChild==null){
 			 System.out.println("1"+find.value);
-			 if(parent==null)
-				 find=null;
-			 else{
+			 if(parent!=null){
 				 if(parent.leftChild==find)
 					 parent.leftChild=null;
 				 else
 					 parent.rightChild=null;
 			 }
+			 find=null;
 				 
 		 }else if(find.leftChild==null){
 			 System.out.println("2"+find.value);
-			 if(parent==null)
-				 find=find.rightChild;
-			 else{
+			 if(parent!=null){
 				 if(parent.leftChild==find)
 					 parent.leftChild=find.rightChild;
 				 else
 					 parent.rightChild=find.rightChild;
-			 }		 
+			 }	
+			 find=find.rightChild;
 		 }else if(find.rightChild==null){
 			 System.out.println("3"+find.value);
 			 if(parent==null)
@@ -102,9 +100,10 @@ public class BinarySearchTree {
 			Node mostRight=find.leftChild;
 			Node rightParent=null;
 			while(mostRight.rightChild!=null){
-				rightParent=mostRight;
+				//rightParent=mostRight;
 				mostRight=mostRight.rightChild;
 			 }
+			rightParent=mostRight.parent;
 			 System.out.println("4"+mostRight.value);
 			//replace it
 			find.value=mostRight.value;
@@ -137,7 +136,7 @@ public class BinarySearchTree {
 		 BTInOrder(root);
 		 System.out.println(result.toString());
 		 Delete(root,5);
-		 Delete(root,8);
+		 //Delete(root,8);
 		 BTInOrder(root);
 		 System.out.println(result.toString());
 	 }
